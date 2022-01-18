@@ -1,0 +1,39 @@
+spring:
+  profiles:
+    active: ${profile:local}
+    include: common
+  cloud: 
+    gateway:
+      default-filters:
+      - name: GlobalFilter
+        args:
+          baseMessage: Spring Cloud Gateway GlobalFilter
+          preLogger: true
+          postLogger: true
+      routes:
+        - id: webserver
+          uri: http://localhost:5011
+          predicates:
+          - Path=/webserver/**
+          filters:
+          - name: GlobalFilter
+            args:
+              baseMessage: Spring Cloud Gateway GlobalFilter
+              preLogger: true
+              postLogger: true
+          - name: RewritePath
+            args:
+              regexp: /webserver/
+              replacement: /
+      
+
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "gateway"
+  endpoint:
+    gateway:
+      enabled: true

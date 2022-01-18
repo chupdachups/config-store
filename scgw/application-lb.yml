@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    active: ${profile:local}
+    include: common
+  cloud: 
+    gateway:
+      routes:
+      - id: webserver
+        uri: lb://webserver
+        predicates:
+        - name: Path
+          args:
+            regexp: /webserver/**
+        filters:
+        - name: RewritePath
+          args:
+            regexp: /webserver/
+            replacement: / 
+      
+
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "gateway"
+  endpoint:
+    gateway:
+      enabled: true
