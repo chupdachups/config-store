@@ -1,3 +1,11 @@
+eureka:
+  client: 
+    register-with-eureka: true 
+    fetch-registry: true 
+    service-url:
+      defaultZone: ${eureka_servers:http://localhost:8761/eureka}
+
+
 spring:
   profiles:
     active: ${profile:local}
@@ -27,6 +35,12 @@ spring:
               replacement: /
       
 
+
+    rabbitmq:
+      host: ${mq_host:localhost}
+      port: ${mq_port:5672}
+      username: ${mq_id:guest}
+      password: ${mq_pw:guest}
       
 management:
   endpoints:
