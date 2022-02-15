@@ -13,8 +13,6 @@ spring:
     password: ${mq_pw:guest}
 
 management:
-  security: 
-    enabled: false
   endpoints:
     web:
       exposure:
