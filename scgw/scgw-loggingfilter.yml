@@ -18,7 +18,12 @@ spring:
           predicates:
           - Path=/webserver/**
           filters:
-          - name: GlobalFilter
+          - name: CustomFilter
+          - name: LoggingFilter
+            args:
+              baseMessage: Welcome, Loggin Filter.
+              preLogger: true
+              postLogger: true
           - name: RewritePath
             args:
               regexp: /webserver/
